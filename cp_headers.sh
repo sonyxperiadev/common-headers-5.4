@@ -14,6 +14,7 @@ UAPI_HEADERS="\
     sound/asound.h\
     linux/ion.h\
     linux/msm_ion.h \
+    linux/msm_ion_ids.h \
     linux/v4l2-mediabus.h\
     linux/msm_rmnet.h\
     linux/msm_ipa.h\
