@@ -13,9 +13,10 @@ UAPI_HEADERS="\
     sound/compress_offload.h\
     sound/asound.h\
     linux/ion.h\
-    linux/msm_ion.h \
-    linux/msm_ion_ids.h \
+    linux/msm_ion.h\
+    linux/msm_ion_ids.h\
     linux/v4l2-mediabus.h\
+    linux/esoc_ctrl.h\
     linux/msm_rmnet.h\
     linux/msm_ipa.h\
     linux/videodev2.h\
@@ -36,8 +37,8 @@ UAPI_HEADERS="\
     linux/mmc/ioctl.h\
     drm/msm_drm.h\
     drm/drm_fourcc.h\
-    drm/drm.h \
-    drm/drm_mode.h \
+    drm/drm.h\
+    drm/drm_mode.h\
     asm-generic/ioctls.h"
 
 TECHPACK_AUDIO_UAPI_HEADERS="\
