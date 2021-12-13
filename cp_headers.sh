@@ -91,8 +91,10 @@ TECHPACK_CAMERA_UAPI_HEADERS="\
     media/cam_sync.h"
 
 TECHPACK_DISPLAY_UAPI_HEADERS="\
-    drm/msm_drm_pp.h\
-    drm/sde_drm.h"
+    display/media/msm_sde_rotator.h\
+    display/media/mmm_color_fmt.h\
+    display/drm/msm_drm_pp.h\
+    display/drm/sde_drm.h"
 
 cd ../../../..
 
@@ -125,7 +127,7 @@ $CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
 done
 
 for x in $TECHPACK_DISPLAY_UAPI_HEADERS; do \
-cp $HEADER_SRC/"../techpack/display/include/uapi/display/"$x $HEADER_ORI/$x
+cp $HEADER_SRC/"../techpack/display/include/uapi/"$x $HEADER_ORI/$x
 $CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
 done
 
