@@ -98,6 +98,10 @@ TECHPACK_DISPLAY_UAPI_HEADERS="\
     display/drm/msm_drm_pp.h\
     display/drm/sde_drm.h"
 
+HEADER_OVERRIDES="\
+    linux/socket.h\
+    display/media/mmm_color_fmt.h"
+
 cd ../../../..
 
 source build/envsetup.sh
@@ -131,6 +135,10 @@ done
 for x in $TECHPACK_DISPLAY_UAPI_HEADERS; do \
 cp $HEADER_SRC/"../techpack/display/include/uapi/"$x $HEADER_ORI/$x
 $CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
+done
+
+for x in $HEADER_OVERRIDES; do \
+cp $HEADER_ORI/$x $HEADER_SAN/$x
 done
 
 echo "Copy complete!"
