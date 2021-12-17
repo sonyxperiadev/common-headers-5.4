@@ -9,6 +9,8 @@ LINUX_HEADERS="\
     linux/hdmi.h"
 
 UAPI_HEADERS="\
+    scsi/ufs/ufs.h\
+    scsi/ufs/ioctl.h\
     sound/compress_params.h\
     sound/compress_offload.h\
     sound/asound.h\
