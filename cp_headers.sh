@@ -63,34 +63,35 @@ TECHPACK_AUDIO_PACK_UAPI_HEADERS="\
     audio/linux/mfd/wcd9xxx/wcd9xxx_registers.h"
 
 TECHPACK_CAMERA_UAPI_HEADERS="\
-    media/cam_cpas.h\
-    media/cam_custom.h\
-    media/cam_defs.h\
-    media/cam_fd.h\
-    media/cam_icp.h\
-    media/cam_isp.h\
-    media/cam_isp_ife.h\
-    media/cam_isp_tfe.h\
-    media/cam_isp_vfe.h\
-    media/cam_jpeg.h\
-    media/cam_lrme.h\
-    media/cam_ope.h\
-    media/cam_req_mgr.h\
-    media/cam_sensor.h\
-    media/cam_sync.h\
-    media/cam_tfe.h\
-    media/cam_defs.h\
-    media/cam_sensor.h\
-    media/cam_isp.h\
-    media/cam_isp_ife.h\
-    media/cam_isp_vfe.h\
-    media/cam_icp.h\
-    media/cam_cpas.h\
-    media/cam_fd.h\
-    media/cam_jpeg.h\
-    media/cam_lrme.h\
-    media/cam_req_mgr.h\
-    media/cam_sync.h"
+    camera/media/cam_cpas.h\
+    camera/media/cam_custom.h\
+    camera/media/cam_defs.h\
+    camera/media/cam_fd.h\
+    camera/media/cam_icp.h\
+    camera/media/cam_isp.h\
+    camera/media/cam_isp_ife.h\
+    camera/media/cam_isp_tfe.h\
+    camera/media/cam_isp_vfe.h\
+    camera/media/cam_jpeg.h\
+    camera/media/cam_lrme.h\
+    camera/media/cam_ope.h\
+    camera/media/cam_req_mgr.h\
+    camera/media/cam_sensor.h\
+    camera/media/cam_sync.h\
+    camera/media/cam_tfe.h\
+    camera/media/cam_defs.h\
+    camera/media/cam_sensor.h\
+    camera/media/cam_isp.h\
+    camera/media/cam_isp_ife.h\
+    camera/media/cam_isp_sfe.h\
+    camera/media/cam_isp_vfe.h\
+    camera/media/cam_icp.h\
+    camera/media/cam_cpas.h\
+    camera/media/cam_fd.h\
+    camera/media/cam_jpeg.h\
+    camera/media/cam_lrme.h\
+    camera/media/cam_req_mgr.h\
+    camera/media/cam_sync.h"
 
 TECHPACK_DISPLAY_UAPI_HEADERS="\
     display/media/msm_sde_rotator.h\
@@ -98,8 +99,13 @@ TECHPACK_DISPLAY_UAPI_HEADERS="\
     display/drm/msm_drm_pp.h\
     display/drm/sde_drm.h"
 
+TECHPACK_VIDEO_UAPI_HEADERS="\
+    media/msm_media_info.h\
+    media/msm_vidc_utils.h"
+
 HEADER_OVERRIDES="\
     linux/socket.h\
+    media/msm_media_info.h\
     display/media/mmm_color_fmt.h"
 
 cd ../../../..
@@ -128,12 +134,17 @@ $CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
 done
 
 for x in $TECHPACK_CAMERA_UAPI_HEADERS; do \
-cp $HEADER_SRC/"../techpack/camera/include/uapi/camera/"$x $HEADER_ORI/$x
+cp $HEADER_SRC/"../techpack/camera/include/uapi/"$x $HEADER_ORI/$x
 $CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
 done
 
 for x in $TECHPACK_DISPLAY_UAPI_HEADERS; do \
 cp $HEADER_SRC/"../techpack/display/include/uapi/"$x $HEADER_ORI/$x
+$CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
+done
+
+for x in $TECHPACK_VIDEO_UAPI_HEADERS; do \
+cp $HEADER_SRC/"../techpack/video/include/uapi/vidc/"$x $HEADER_ORI/$x
 $CLEAN_HEADER -u -v -k $HEADER_ORI -d $HEADER_SAN $x &>>out/cp_headers_5.4.log
 done
 
