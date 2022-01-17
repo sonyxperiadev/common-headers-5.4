@@ -44,6 +44,7 @@ UAPI_HEADERS="\
     asm-generic/ioctls.h"
 
 TECHPACK_AUDIO_UAPI_HEADERS="\
+    sound/audio_compressed_formats.h\
     sound/audio_effects.h\
     sound/lsm_params.h\
     sound/devdep_params.h\
