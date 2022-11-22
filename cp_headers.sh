@@ -38,6 +38,7 @@ UAPI_HEADERS="\
     linux/v4l2-controls.h\
     linux/v4l2-mediabus.h\
     linux/mmc/ioctl.h\
+    linux/mem-buf.h\
     drm/msm_drm.h\
     drm/drm_fourcc.h\
     drm/drm.h\
