@@ -39,6 +39,7 @@
 #define RMNET_IOCTL_FLOW_DISABLE 0x000089FB
 #define RMNET_IOCTL_FLOW_SET_HNDL 0x000089FC
 #define RMNET_IOCTL_EXTENDED 0x000089FD
+#define RMNET_IOCTL_EXTENDED_V2 0x000089FE
 #define RMNET_IOCTL_GET_SUPPORTED_FEATURES 0x0000
 #define RMNET_IOCTL_SET_MRU 0x0001
 #define RMNET_IOCTL_GET_MRU 0x0002
@@ -68,6 +69,12 @@
 #define RMNET_IOCTL_SET_MTU 0x0020
 #define RMNET_IOCTL_GET_EPID_LL 0x0021
 #define RMNET_IOCTL_GET_EP_PAIR_LL 0x0022
+#define RMNET_IOCTL_SET_ETH_VLAN 0x0023
+#define RMNET_IOCTL_ADD_MUX_CHANNEL_v2 0x0024
+#define RMNET_IOCTL_GET_EPID_ETH 0x0025
+#define RMNET_IOCTL_GET_EP_PAIR_ETH 0x0026
+#define RMNET_IOCTL_SET_EGRESS_DATA_FORMAT_V2 0x0000
+#define RMNET_IOCTL_SET_INGRESS_DATA_FORMAT_V2 0x0001
 #define RMNET_IOCTL_FEAT_NOTIFY_MUX_CHANNEL (1 << 0)
 #define RMNET_IOCTL_FEAT_SET_EGRESS_DATA_FORMAT (1 << 1)
 #define RMNET_IOCTL_FEAT_SET_INGRESS_DATA_FORMAT (1 << 2)
@@ -78,21 +85,81 @@
 #define RMNET_IOCTL_FEAT_FLOW_CONTROL (1 << 7)
 #define RMNET_IOCTL_FEAT_GET_DFLT_CONTROL_CHANNEL (1 << 8)
 #define RMNET_IOCTL_FEAT_GET_HWSW_MAP (1 << 9)
+#define RMNET_IOCTL_FEAT_ETH_PDU (1 << 10)
 #define RMNET_IOCTL_EGRESS_FORMAT_MAP (1 << 1)
 #define RMNET_IOCTL_EGRESS_FORMAT_AGGREGATION (1 << 2)
 #define RMNET_IOCTL_EGRESS_FORMAT_MUXING (1 << 3)
 #define RMNET_IOCTL_EGRESS_FORMAT_CHECKSUM (1 << 4)
+#define RMNET_IOCTL_EGRESS_FORMAT_IP_ROUTE (1 << 5)
 #define RMNET_IOCTL_INGRESS_FORMAT_MAP (1 << 1)
 #define RMNET_IOCTL_INGRESS_FORMAT_DEAGGREGATION (1 << 2)
 #define RMNET_IOCTL_INGRESS_FORMAT_DEMUXING (1 << 3)
 #define RMNET_IOCTL_INGRESS_FORMAT_CHECKSUM (1 << 4)
 #define RMNET_IOCTL_INGRESS_FORMAT_AGG_DATA (1 << 5)
+#define RMNET_IOCTL_INGRESS_FORMAT_IP_ROUTE (1 << 6)
 #define RMNET_IOCTL_OFFLOAD_FORMAT_NONE (0)
 #define RMNET_IOCTL_COALESCING_FORMAT_TCP (1 << 0)
 #define RMNET_IOCTL_COALESCING_FORMAT_UDP (1 << 1)
 #ifndef IFNAMSIZ
 #define IFNAMSIZ 16
 #endif
+#define MAC_ADDR_SIZE 6
+enum rmnet_egress_ep_type {
+  RMNET_EGRESS_DEFAULT = 0x0000,
+  RMNET_EGRESS_LOW_LAT_CTRL = 0x0001,
+  RMNET_EGRESS_LOW_LAT_DATA = 0x0002,
+  RMNET_EGRESS_ETH_DATA = 0x0003,
+  RMNET_EGRESS_MAX = 0x0004,
+};
+enum rmnet_ingress_ep_type {
+  RMNET_INGRESS_COALS = 0x0000,
+  RMNET_INGRESS_DEFAULT = 0x0001,
+  RMNET_INGRESS_LOW_LAT_CTRL = 0x0002,
+  RMNET_INGRESS_LOW_LAT_DATA = 0x0003,
+  RMNET_INGRESS_MAX = 0x0004,
+};
+enum rmnet_egress_ingress_pipe_setup_status {
+  IPA_PIPE_SETUP_SUCCESS = 0x0000,
+  IPA_PIPE_SETUP_FAILURE = 0x0001,
+  IPA_PIPE_SETUP_EXISTS = 0x0002,
+};
+struct rmnet_egress_param {
+  __u32 egress_ep_type;
+  __u32 pipe_setup_status;
+  __u32 cs_offload_en;
+  __u32 aggr_en;
+  __u32 ulso_en;
+  __u32 ipid_min_max_idx;
+  __u32 int_modt;
+  __u32 int_modc;
+};
+struct rmnet_ingress_param {
+  __u32 ingress_ep_type;
+  __u32 pipe_setup_status;
+  __u32 cs_offload_en;
+  __u32 buff_size;
+  __u32 agg_byte_limit;
+  __u32 agg_time_limit;
+  __u32 agg_pkt_limit;
+  __u32 int_modt;
+  __u32 int_modc;
+  __u32 padding;
+};
+struct ingress_format_v2 {
+  __u64 ingress_param_ptr;
+  __u32 ingress_param_size;
+  __u32 number_of_eps;
+};
+struct egress_format_v2 {
+  __u64 egress_param_ptr;
+  __u32 egress_param_size;
+  __u32 number_of_eps;
+};
+struct rmnet_ioctl_extended_s_v2 {
+  __u64 ioctl_ptr;
+  __u32 ioctl_data_size;
+  __u32 extended_v2_ioctl_type;
+};
 struct rmnet_ioctl_extended_s {
   __u32 extended_ioctl;
   union {
@@ -124,6 +191,11 @@ struct rmnet_ioctl_extended_s {
       __u16 mtu_v4;
       __u16 mtu_v6;
     } mtu_params;
+    struct {
+      __u32 mux_id;
+      __s8 vchannel_name[IFNAMSIZ];
+      __u8 mac[MAC_ADDR_SIZE];
+    } rmnet_mux_val_v2;
   } u;
 };
 struct rmnet_ioctl_data_s {

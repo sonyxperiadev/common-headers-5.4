@@ -234,8 +234,8 @@ struct cam_isp_in_port_info_v2 {
   __u32 horizontal_bin;
   __u32 qcfa_bin;
   __u32 sfe_in_path_type;
-  __u32 vc_dt_pattern_id;
   __u32 feature_flag;
+  __u32 ife_res_1;
   __u32 ife_res_2;
   struct cam_isp_out_port_info_v2 data[1];
 };

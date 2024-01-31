@@ -20,7 +20,6 @@
 #define _UAPI__SOUND_ASOUND_H
 #ifdef __linux__
 #include <linux/types.h>
-#include <linux/time.h>
 #else
 #include <sys/ioctl.h>
 #endif

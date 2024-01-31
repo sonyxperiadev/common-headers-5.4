@@ -43,6 +43,7 @@
 #define WAN_IOCTL_ADD_OFFLOAD_CONNECTION 18
 #define WAN_IOCTL_RMV_OFFLOAD_CONNECTION 19
 #define WAN_IOCTL_GET_WAN_MTU 20
+#define WAN_IOCTL_NOTIFY_NAT_MOVE_RES 21
 #ifndef IFNAMSIZ
 #define IFNAMSIZ 16
 #endif
@@ -147,4 +148,5 @@ struct wan_ioctl_query_per_client_stats {
 #define WAN_IOC_ADD_OFFLOAD_CONNECTION _IOWR(WAN_IOC_MAGIC, WAN_IOCTL_ADD_OFFLOAD_CONNECTION, struct ipa_add_offload_connection_req_msg_v01 *)
 #define WAN_IOC_RMV_OFFLOAD_CONNECTION _IOWR(WAN_IOC_MAGIC, WAN_IOCTL_RMV_OFFLOAD_CONNECTION, struct ipa_remove_offload_connection_req_msg_v01 *)
 #define WAN_IOC_GET_WAN_MTU _IOWR(WAN_IOC_MAGIC, WAN_IOCTL_GET_WAN_MTU, struct ipa_mtu_info *)
+#define WAN_IOC_NOTIFY_NAT_MOVE_RES _IOWR(WAN_IOC_MAGIC, WAN_IOCTL_NOTIFY_NAT_MOVE_RES, bool)
 #endif

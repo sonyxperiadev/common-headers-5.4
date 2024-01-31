@@ -116,6 +116,7 @@ enum {
   PER_VOCODER_CAL_BIT_MASK = 0x10000,
 };
 #define MAX_IOCTL_CMD_SIZE 512
+#define ASM_CAL_SEND_VERSION_OFFSET 256
 struct audio_cal_header {
   __s32 data_size;
   __s32 version;
